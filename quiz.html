@@ -399,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (resultBox) {
             resultBox.style.display = "block";
             resultBox.innerHTML =
-                <strong>${lang === "en" ? "Your Score" : "あなたのスコア"}:</strong> ${total}<br><br>${interpretation};
+                `<strong>${lang === "en" ? "Your Score" : "あなたのスコア"}:</strong> ${total}<br><br>${interpretation}`;
         }
     };
 
