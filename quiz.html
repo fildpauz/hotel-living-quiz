@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Extended-Stay Hotel Living Self-Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f7f7f7;
+        color: #333;
+    }
+    header {
+        background: #4a6fa5;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 1rem;
+    }
+    .language-selector {
+        margin-bottom: 1rem;
+        text-align: right;
+    }
+    select {
+        padding: 0.4rem;
+        font-size: 1rem;
+    }
+    .quiz-section {
+        background: white;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h2 {
+        margin-top: 0;
+    }
+    .question {
+        margin: 0.8rem 0;
+    }
+    .score-box {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #eef3fa;
+        border-radius: 8px;
+    }
+    button {
+        padding: 0.7rem 1.2rem;
+        font-size: 1rem;
+        background: #4a6fa5;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 1rem;
+    }
+    button:hover {
+        background: #3b5a87;
+    }
+    @media (max-width: 600px) {
+        body { font-size: 16px; }
+        button { width: 100%; }
+    }
+</style>
+</head>
+
+<body>
+<header>
+    <h1 id="title-en">Extended-Stay Hotel Living Self‑Quiz (Retiree Edition)</h1>
+    <h1 id="title-ja" style="display:none;">長期ホテル滞在ライフ適性セルフチェック（リタイア向け）</h1>
+</header>
+
+<div class="container">
+
+    <div class="language-selector">
+        <label for="lang">Language / 言語:</label>
+        <select id="lang" onchange="switchLanguage()">
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+        </select>
+    </div>
+
+    <form id="quizForm">
+
+        <!-- English Version -->
+        <div id="quiz-en">
+            <div class="quiz-section">
+                <h2>Section A — Comfort With Downsizing & Simplicity</h2>
+                <div class="question">1. I’m comfortable living with fewer possessions.
+                    <input type="number" name="q1" min="1" max="5" required>
+                </div>
+                <div class="question">2. I like the idea of a living space that’s easy to maintain.
+                    <input type="number" name="q2" min="1" max="5" required>
+                </div>
+                <div class="question">3. I don’t feel emotionally attached to most belongings.
+                    <input type="number" name="q3" min="1" max="5" required>
+                </div>
+                <div class="question">4. I’m open to reorganizing routines in a smaller space.
+                    <input type="number" name="q4" min="1" max="5" required>
+                </div>
+                <div class="question">5. I enjoy the idea of a simpler lifestyle.
+                    <input type="number" name="q5" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Section B — Convenience & Reduced Responsibilities</h2>
+                <div class="question">6. I prefer not to deal with home repairs or cleaning.
+                    <input type="number" name="q6" min="1" max="5" required>
+                </div>
+                <div class="question">7. I appreciate services like housekeeping and front‑desk support.
+                    <input type="number" name="q7" min="1" max="5" required>
+                </div>
+                <div class="question">8. I like predictable monthly costs.
+                    <input type="number" name="q8" min="1" max="5" required>
+                </div>
+                <div class="question">9. I value having help nearby if needed.
+                    <input type="number" name="q9" min="1" max="5" required>
+                </div>
+                <div class="question">10. I feel relieved at the thought of not managing a full household.
+                    <input type="number" name="q10" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Section C — Mobility & Change</h2>
+                <div class="question">11. I enjoy exploring new places.
+                    <input type="number" name="q11" min="1" max="5" required>
+                </div>
+                <div class="question">12. I’m comfortable moving every few weeks or months.
+                    <input type="number" name="q12" min="1" max="5" required>
+                </div>
+                <div class="question">13. I don’t need a single “home base.”
+                    <input type="number" name="q13" min="1" max="5" required>
+                </div>
+                <div class="question">14. Novelty energizes me.
+                    <input type="number" name="q14" min="1" max="5" required>
+                </div>
+                <div class="question">15. I’m open to meeting new people often.
+                    <input type="number" name="q15" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Section D — Comfort & Daily Routines</h2>
+                <div class="question">16. I can live comfortably in a smaller room.
+                    <input type="number" name="q16" min="1" max="5" required>
+                </div>
+                <div class="question">17. Occasional noise doesn’t bother me.
+                    <input type="number" name="q17" min="1" max="5" required>
+                </div>
+                <div class="question">18. I’m comfortable sharing amenities.
+                    <input type="number" name="q18" min="1" max="5" required>
+                </div>
+                <div class="question">19. I can maintain health routines anywhere.
+                    <input type="number" name="q19" min="1" max="5" required>
+                </div>
+                <div class="question">20. I feel confident navigating new buildings.
+                    <input type="number" name="q20" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Section E — Food, Hobbies & Lifestyle</h2>
+                <div class="question">21. I’m fine with simple cooking setups.
+                    <input type="number" name="q21" min="1" max="5" required>
+                </div>
+                <div class="question">22. I don’t rely on a full kitchen.
+                    <input type="number" name="q22" min="1" max="5" required>
+                </div>
+                <div class="question">23. I enjoy eating out or prepared meals.
+                    <input type="number" name="q23" min="1" max="5" required>
+                </div>
+                <div class="question">24. My hobbies don’t require much space.
+                    <input type="number" name="q24" min="1" max="5" required>
+                </div>
+                <div class="question">25. I can create routines anywhere.
+                    <input type="number" name="q25" min="1" max="5" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Japanese Version -->
+        <div id="quiz-ja" style="display:none;">
+            <div class="quiz-section">
+                <h2>Aセクション — 断捨離とシンプルさへの適応</h2>
+                <div class="question">1. 持ち物を減らして暮らすことに抵抗がない。
+                    <input type="number" name="j1" min="1" max="5" required>
+                </div>
+                <div class="question">2. 手入れが簡単な住まいに魅力を感じる。
+                    <input type="number" name="j2" min="1" max="5" required>
+                </div>
+                <div class="question">3. 多くの物に強い愛着はない。
+                    <input type="number" name="j3" min="1" max="5" required>
+                </div>
+                <div class="question">4. 小さな空間で生活リズムを再構築できる。
+                    <input type="number" name="j4" min="1" max="5" required>
+                </div>
+                <div class="question">5. シンプルな暮らしに魅力を感じる。
+                    <input type="number" name="j5" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Bセクション — 便利さと負担の軽減</h2>
+                <div class="question">6. 修理や掃除を自分で行いたくない。
+                    <input type="number" name="j6" min="1" max="5" required>
+                </div>
+                <div class="question">7. ハウスキーピングやフロントサービスをありがたく感じる。
+                    <input type="number" name="j7" min="1" max="5" required>
+                </div>
+                <div class="question">8. 毎月の費用が予測しやすい方が良い。
+                    <input type="number" name="j8" min="1" max="5" required>
+                </div>
+                <div class="question">9. 必要な時に助けが近くにあると安心する。
+                    <input type="number" name="j9" min="1" max="5" required>
+                </div>
+                <div class="question">10. 家全体を管理しなくてよいと思うと気が楽になる。
+                    <input type="number" name="j10" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Cセクション — 移動と変化への適応</h2>
+                <div class="question">11. 新しい場所を探索するのが好きだ。
+                    <input type="number" name="j11" min="1" max="5" required>
+                </div>
+                <div class="question">12. 数週間〜数ヶ月ごとに移動することに抵抗がない。
+                    <input type="number" name="j12" min="1" max="5" required>
+                </div>
+                <div class="question">13. 一つの「拠点」にこだわらない。
+                    <input type="number" name="j13" min="1" max="5" required>
+                </div>
+                <div class="question">14. 新しい刺激が活力になる。
+                    <input type="number" name="j14" min="1" max="5" required>
+                </div>
+                <div class="question">15. 新しい人と出会うことに前向きだ。
+                    <input type="number" name="j15" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Dセクション — 快適さと日常生活</h2>
+                <div class="question">16. 小さな部屋でも快適に暮らせる。
+                    <input type="number" name="j16" min="1" max="5" required>
+                </div>
+                <div class="question">17. 時々の騒音は気にならない。
+                    <input type="number" name="j17" min="1" max="5" required>
+                </div>
+                <div class="question">18. 共有設備の利用に抵抗がない。
+                    <input type="number" name="j18" min="1" max="5" required>
+                </div>
+                <div class="question">19. どこでも健康習慣を維持できる。
+                    <input type="number" name="j19" min="1" max="5" required>
+                </div>
+                <div class="question">20. 新しい建物でも迷わず行動できる。
+                    <input type="number" name="j20" min="1" max="5" required>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <h2>Eセクション — 食事・趣味・生活スタイル</h2>
+                <div class="question">21. 簡易キッチンでも問題なく料理できる。
+                    <input type="number" name="j21" min="1" max="5" required>
+                </div>
+                <div class="question">22. フルキッチンがなくても困らない。
+                    <input type="number" name="j22" min="1" max="5" required>
+                </div>
+                <div class="question">23. 外食や惣菜を楽しめる。
+                    <input type="number" name="j23" min="1" max="5" required>
+                </div>
+                <div class="question">24. 趣味に広いスペースを必要としない。
+                    <input type="number" name="j24" min="1" max="5" required>
+                </div>
+                <div class="question">25. どこでも生活リズムを作れる。
+                    <input type="number" name="j25" min="1" max="5" required>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" onclick="calculateScore()">Calculate Score</button>
+
+        <div id="result" class="score-box" style="display:none;"></div>
+
+    </form>
+</div>
+
+<script>
+function switchLanguage() {
+    const lang = document.getElementById("lang").value;
+    document.getElementById("quiz-en").style.display = lang === "en" ? "block" : "none";
+    document.getElementById("quiz-ja").style.display = lang === "ja" ? "block" : "none";
+    document.getElementById("title-en").style.display = lang === "en" ? "block" : "none";
+    document.getElementById("title-ja").style.display = lang === "ja" ? "block" : "none";
+}
+
+function calculateScore() {
+    const lang = document.getElementById("lang").value;
+    const form = document.getElementById("quizForm");
+    let total = 0;
+
+    const prefix = lang === "en" ? "q" : "j";
+
+    for (let i = 1; i <= 25; i++) {
+        const val = parseInt(form[prefix + i].value);
+        if (!val) {
+            alert(lang === "en" ? "Please answer all questions." : "すべての質問に回答してください。");
+            return;
+        }
+        total += val;
+    }
+
+    let interpretation = "";
+
+    if (lang === "en") {
+        if (total <= 49) interpretation = "Rooted Homebody — You may prefer stability and familiarity.";
+        else if (total <= 74) interpretation = "Selective Explorer — Extended stays may work part‑time.";
+        else if (total <= 100) interpretation = "Flexible Retiree — You’re well‑suited for extended hotel living.";
+        else interpretation = "Nomadic Retiree at Heart — This lifestyle fits you extremely well.";
+    } else {
+        if (total <= 49) interpretation = "安定志向タイプ — 自宅での生活が最も安心できるかもしれません。";
+        else if (total <= 74) interpretation = "選択的探検タイプ — 部分的な長期滞在なら向いています。";
+        else if (total <= 100) interpretation = "柔軟なリタイアタイプ — 長期ホテル滞在に適しています。";
+        else interpretation = "ノマド型リタイアタイプ — このライフスタイルに非常に向いています。";
+    }
+
+    const resultBox = document.getElementById("result");
+    resultBox.style.display = "block";
+    resultBox.innerHTML = <strong>${lang === "en" ? "Your Score" : "あなたのスコア"}:</strong> ${total}<br><br>${interpretation};
+}
+</script>
+
+</body>
+</html>
