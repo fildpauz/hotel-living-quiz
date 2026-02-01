@@ -400,6 +400,8 @@ document.addEventListener("DOMContentLoaded", function () {
             resultBox.style.display = "block";
             resultBox.innerHTML =
                 `<strong>${lang === "en" ? "Your Score" : "あなたのスコア"}:</strong> ${total}<br><br>${interpretation}`;
+            // Smoothly scroll the result into view
+            resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
         }
     };
 
