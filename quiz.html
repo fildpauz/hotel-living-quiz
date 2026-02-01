@@ -321,54 +321,91 @@
 </div>
 
 <script>
-function switchLanguage() {
-    const lang = document.getElementById("lang").value;
-    const showEN = lang === "en";
-    const showJA = lang === "ja";
+// Run after DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function () {
 
-    document.getElementById("title-en").style.display = showEN ? "block" : "none";
-    document.getElementById("title-ja").style.display = showJA ? "block" : "none";
+    // Safe helper: show/hide an element only if it exists
+    function safeDisplay(id, show) {
+        const el = document.getElementById(id);
+        if (el) el.style.display = show ? "block" : "none";
+    }
 
-    document.getElementById("instructions-en").style.display = showEN ? "block" : "none";
-    document.getElementById("instructions-ja").style.display = showJA ? "block" : "none";
+    // Bulletproof language switcher
+    window.switchLanguage = function () {
+        const langSelect = document.getElementById("lang");
+        if (!langSelect) return; // safety fallback
 
-    document.getElementById("quiz-en").style.display = showEN ? "block" : "none";
-    document.getElementById("quiz-ja").style.display = showJA ? "block" : "none";
-}
+        const lang = langSelect.value;
+        const showEN = lang === "en";
+        const showJA = lang === "ja";
 
-function calculateScore() {
-    const lang = document.getElementById("lang").value;
-    const form = document.getElementById("quizForm");
-    let total = 0;
-    const prefix = lang === "en" ? "q" : "j";
+        // Titles
+        safeDisplay("title-en", showEN);
+        safeDisplay("title-ja", showJA);
 
-    for (let i = 1; i <= 25; i++) {
-        const field = form[prefix + i];
-        const val = parseInt(field.value);
-        if (!val) {
-            alert(lang === "en" ? "Please answer all questions." : "すべての質問に回答してください。");
-            return;
+        // Instructions
+        safeDisplay("instructions-en", showEN);
+        safeDisplay("instructions-ja", showJA);
+
+        // Quiz bodies
+        safeDisplay("quiz-en", showEN);
+        safeDisplay("quiz-ja", showJA);
+    };
+
+    // Bulletproof score calculator
+    window.calculateScore = function () {
+        const langSelect = document.getElementById("lang");
+        if (!langSelect) return;
+
+        const lang = langSelect.value;
+        const prefix = lang === "en" ? "q" : "j";
+
+        const form = document.getElementById("quizForm");
+        if (!form) return;
+
+        let total = 0;
+
+        for (let i = 1; i <= 25; i++) {
+            const field = form[prefix + i];
+            if (!field) {
+                alert("A required field is missing.");
+                return;
+            }
+            const val = parseInt(field.value);
+            if (!val) {
+                alert(lang === "en"
+                    ? "Please answer all questions."
+                    : "すべての質問に回答してください。"
+                );
+                return;
+            }
+            total += val;
         }
-        total += val;
-    }
 
-    let interpretation = "";
-    if (lang === "en") {
-        if (total <= 49) interpretation = "Rooted Homebody — You may prefer stability and familiarity.";
-        else if (total <= 74) interpretation = "Selective Explorer — Extended stays may work part‑time.";
-        else if (total <= 100) interpretation = "Flexible Retiree — You’re well‑suited for extended hotel living.";
-        else interpretation = "Nomadic Retiree at Heart — This lifestyle fits you extremely well.";
-    } else {
-        if (total <= 49) interpretation = "安定志向タイプ — 自宅での生活が最も安心できるかもしれません。";
-        else if (total <= 74) interpretation = "選択的探検タイプ — 部分的な長期滞在なら向いています。";
-        else if (total <= 100) interpretation = "柔軟なリタイアタイプ — 長期ホテル滞在に適しています。";
-        else interpretation = "ノマド型リタイアタイプ — このライフスタイルに非常に向いています。";
-    }
+        let interpretation = "";
+        if (lang === "en") {
+            if (total <= 49) interpretation = "Rooted Homebody — You may prefer stability and familiarity.";
+            else if (total <= 74) interpretation = "Selective Explorer — Extended stays may work part‑time.";
+            else if (total <= 100) interpretation = "Flexible Retiree — You’re well‑suited for extended hotel living.";
+            else interpretation = "Nomadic Retiree at Heart — This lifestyle fits you extremely well.";
+        } else {
+            if (total <= 49) interpretation = "安定志向タイプ — 自宅での生活が最も安心できるかもしれません。";
+            else if (total <= 74) interpretation = "選択的探検タイプ — 部分的な長期滞在なら向いています。";
+            else if (total <= 100) interpretation = "柔軟なリタイアタイプ — 長期ホテル滞在に適しています。";
+            else interpretation = "ノマド型リタイアタイプ — このライフスタイルに非常に向いています。";
+        }
 
-    const resultBox = document.getElementById("result");
-    resultBox.style.display = "block";
-    resultBox.innerHTML = <strong>${lang === "en" ? "Your Score" : "あなたのスコア"}:</strong> ${total}<br><br>${interpretation};
-}
+        const resultBox = document.getElementById("result");
+        if (resultBox) {
+            resultBox.style.display = "block";
+            resultBox.innerHTML =
+                <strong>${lang === "en" ? "Your Score" : "あなたのスコア"}:</strong> ${total}<br><br>${interpretation};
+        }
+    };
+
+    // Ensure correct initial language state
+    window.switchLanguage();
+});
 </script>
 
 </body>
